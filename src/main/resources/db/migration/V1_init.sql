@@ -1,13 +1,12 @@
 CREATE SCHEMA IF NOT EXISTS gestobar;
 SET search_path TO gestobar;
 
--- Usuarios (camareros, admin)
+-- Usuarios (waiter, admin)
 CREATE TABLE users
 (
     user_id   SERIAL PRIMARY KEY,
     name      VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
-    email     VARCHAR(255) NOT NULL UNIQUE,
     password  VARCHAR(255) NOT NULL,
     role      VARCHAR(50)  NOT NULL DEFAULT 'WAITER', -- 'WAITER' OR 'ADMIN'
     is_active BOOLEAN      NOT NULL DEFAULT TRUE,
