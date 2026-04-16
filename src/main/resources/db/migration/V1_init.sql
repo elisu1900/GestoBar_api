@@ -31,7 +31,7 @@ CREATE TABLE products
 );
 
 -- Mesas
-CREATE TABLE tables
+CREATE TABLE Restaurant_table
 (
     table_id  SERIAL PRIMARY KEY,
     number    INT     NOT NULL UNIQUE,

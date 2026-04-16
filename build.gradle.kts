@@ -51,6 +51,8 @@ dependencies {
 	implementation("org.mapstruct:mapstruct:1.6.3")
 	implementation("io.github.oshai:kotlin-logging-jvm:7.0.3")
 	runtimeOnly("org.postgresql:postgresql")
+	implementation("org.projectlombok:lombok")
+	annotationProcessor("org.projectlombok:lombok")
 }
 
 tasks.withType<Test> {
