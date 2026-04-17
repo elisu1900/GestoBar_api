@@ -43,7 +43,7 @@ CREATE TABLE Restaurant_table
 CREATE TABLE tickets
 (
     ticket_id  SERIAL PRIMARY KEY,
-    table_id   INT         REFERENCES tables (table_id),
+    table_id   INT         REFERENCES Restaurant_table (table_id),
     user_id    INT         REFERENCES users (user_id),
     status     VARCHAR(50) NOT NULL DEFAULT 'OPEN',
     total      DECIMAL(10, 2)       DEFAULT 0.00,
