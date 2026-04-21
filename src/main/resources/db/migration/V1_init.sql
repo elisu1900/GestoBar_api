@@ -2,7 +2,7 @@ CREATE SCHEMA IF NOT EXISTS gestobar;
 SET search_path TO gestobar;
 
 -- Usuarios (waiter, admin)
-CREATE TABLE users
+CREATE TABLE usersW
 (
     user_id   SERIAL PRIMARY KEY,
     name      VARCHAR(100) NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE products
 );
 
 -- Mesas
-CREATE TABLE Restaurant_table
+CREATE TABLE restaurant_tables
 (
     table_id  SERIAL PRIMARY KEY,
     number    INT     NOT NULL UNIQUE,

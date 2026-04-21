@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Entity
-@Table(name = "\"tables\"", schema = "gestobar")
+@Table(name = "restaurant_table", schema = "gestobar")
 @Getter
 @Setter
 @NoArgsConstructor
