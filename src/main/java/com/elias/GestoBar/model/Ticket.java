@@ -31,8 +31,9 @@ public class Ticket {
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 50)
-    private String status;
+    private TicketStatus status;
 
     @Digits(integer = 8, fraction = 2)
     @Column(name = "total", precision = 10, scale = 2)

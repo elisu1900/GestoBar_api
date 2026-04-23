@@ -49,6 +49,8 @@ dependencies {
 
 	// ── Utilidades ────────────────────────────────────────
 	implementation("org.mapstruct:mapstruct:1.6.3")
+	annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
+	annotationProcessor("org.projectlombok:lombok-mapstruct-binding:0.2.0")
 	implementation("io.github.oshai:kotlin-logging-jvm:7.0.3")
 	runtimeOnly("org.postgresql:postgresql")
 	implementation("org.projectlombok:lombok")

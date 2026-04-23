@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface RestaurantTableRepository extends JpaRepository<RestaurantTable, Integer> {
 
-    List<RestaurantTable> findBytableId(Long tableId);
+    List<RestaurantTable> findBytableId(Integer tableId);
 
     List<RestaurantTable> findByIsActiveTrue();
 

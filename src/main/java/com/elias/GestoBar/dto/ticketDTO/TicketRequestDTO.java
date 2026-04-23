@@ -1,6 +1,7 @@
 package com.elias.GestoBar.dto.ticketDTO;
 
 import com.elias.GestoBar.dto.ticketDetailDTO.TicketDetailRequestDTO;
+import com.elias.GestoBar.model.TicketStatus;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -21,7 +22,7 @@ public class TicketRequestDTO {
     private Integer userId;
 
     @NotNull
-    private String status;
+    private TicketStatus status;
 
     @Builder.Default
     private List<TicketDetailRequestDTO> details = new ArrayList<>();

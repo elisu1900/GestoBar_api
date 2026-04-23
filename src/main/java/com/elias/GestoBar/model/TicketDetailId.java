@@ -14,9 +14,9 @@ import java.io.Serializable;
 @EqualsAndHashCode
 public class TicketDetailId implements Serializable {
 
-    @Column(name = "ticket_id", nullable = false)
+    @Column(name = "ticket_id")
     private Integer ticketId;
 
-    @Column(name = "product_id", nullable = false)
+    @Column(name = "product_id")
     private Integer productId;
 }

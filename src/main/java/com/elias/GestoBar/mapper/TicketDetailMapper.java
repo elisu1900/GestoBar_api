@@ -4,9 +4,12 @@ import com.elias.GestoBar.dto.ticketDetailDTO.TicketDetailRequestDTO;
 import com.elias.GestoBar.dto.ticketDetailDTO.TicketDetailResponseDTO;
 import com.elias.GestoBar.model.TicketDetail;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface TicketDetailMapper {
-    TicketDetail toEntity(TicketDetailRequestDTO ticketDetailRequestDTO);
+
+    @Mapping(source = "ticket.ticketId", target = "ticketId")
+    @Mapping(source = "product.productId", target = "productId")
     TicketDetailResponseDTO toResponse(TicketDetail ticketDetail);
 }

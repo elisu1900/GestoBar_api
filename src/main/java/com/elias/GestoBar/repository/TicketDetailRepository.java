@@ -14,5 +14,8 @@ public interface TicketDetailRepository extends JpaRepository<TicketDetail, Inte
 
     List<TicketDetail> findByProduct_ProductId(Integer productId);
 
-    TicketDetail findByTicket_TicketIdAndProduct_ProductId(Integer ticketId, Integer productId);
+    Optional<TicketDetail> findByTicket_TicketIdAndProduct_ProductId(Integer ticketId, Integer productId);
+
+    void deleteByTicket_TicketIdAndProduct_ProductId(Integer ticketId, Integer productId);
+
 }
