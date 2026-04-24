@@ -22,7 +22,4 @@ public class TicketDetailRequestDTO {
     @Min(1)
     private Integer quantity;
 
-    @DecimalMin(value = "0.00", inclusive = false)
-    @Digits(integer = 8, fraction = 2)
-    private BigDecimal unitPrice;
 }

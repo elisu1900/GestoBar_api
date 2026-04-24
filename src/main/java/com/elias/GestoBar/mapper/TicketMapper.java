@@ -12,7 +12,5 @@ public interface TicketMapper {
 
     @Mapping(source = "table.tableId", target = "tableId")
     @Mapping(source = "table.number", target = "tableNumber")
-    @Mapping(source = "user.userId", target = "userId")
-    @Mapping(source = "status", target = "status")
     TicketResponseDTO toResponse(Ticket ticket);
 }

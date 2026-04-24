@@ -18,12 +18,6 @@ public class TicketRequestDTO {
     @NotNull
     private Integer tableId;
 
-    @NotNull
-    private Integer userId;
-
-    @NotNull
-    private TicketStatus status;
-
     @Builder.Default
     private List<TicketDetailRequestDTO> details = new ArrayList<>();
 }

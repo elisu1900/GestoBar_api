@@ -39,6 +39,9 @@ public class Ticket {
     @Column(name = "total", precision = 10, scale = 2)
     private BigDecimal total;
 
+    @Column(name = "archived", nullable = false)
+    private Boolean archived = false;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 

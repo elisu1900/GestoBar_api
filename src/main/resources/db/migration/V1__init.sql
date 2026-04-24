@@ -26,7 +26,8 @@ CREATE TABLE products
     product_id  SERIAL PRIMARY KEY,
     category_id INT            REFERENCES categories (category_id),
     name        VARCHAR(255)   NOT NULL,
-    price       DECIMAL(10, 2) NOT NULL,
+    price_sell       DECIMAL(10, 2) NOT NULL,
+    price_cost       DECIMAL(10, 2) NOT NULL,
     is_active   BOOLEAN        NOT NULL DEFAULT TRUE
 );
 
@@ -47,6 +48,7 @@ CREATE TABLE tickets
     user_id    INT         REFERENCES users (user_id),
     status     VARCHAR(50) NOT NULL DEFAULT 'OPEN',
     total      DECIMAL(10, 2)       DEFAULT 0.00,
+    archived BOOLEAN NOT NULL DEFAULT FALSE,
     created_at TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
     closed_at  TIMESTAMP
 );

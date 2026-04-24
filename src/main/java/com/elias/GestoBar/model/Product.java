@@ -34,8 +34,13 @@ public class Product {
 
     @DecimalMin(value = "0.00", inclusive = false)
     @Digits(integer = 8, fraction = 2)
-    @Column(name = "price", nullable = false, precision = 10, scale = 2)
-    private BigDecimal price;
+    @Column(name = "price_sell", nullable = false, precision = 10, scale = 2)
+    private BigDecimal sellPrice;
+
+    @DecimalMin(value = "0.00", inclusive = false)
+    @Digits(integer = 8, fraction = 2)
+    @Column(name = "price_cost", nullable = false, precision = 10, scale = 2)
+    private BigDecimal costPrice;
 
     @Column(name = "is_active", nullable = false)
     private Boolean isActive;

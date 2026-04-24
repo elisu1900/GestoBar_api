@@ -5,6 +5,7 @@ import com.elias.GestoBar.model.TicketStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,4 +21,5 @@ public interface TicketRepository extends JpaRepository<Ticket, Integer> {
 
     Optional<Ticket> findByTable_TableIdAndStatus(Integer talbeId, TicketStatus status);
 
+    List<Ticket> findByStatusAndArchivedFalseAndClosedAtBetween(TicketStatus status, LocalDateTime start, LocalDateTime end);
 }

@@ -8,12 +8,16 @@ import com.elias.GestoBar.mapper.TicketDetailMapper;
 import com.elias.GestoBar.mapper.TicketMapper;
 import com.elias.GestoBar.model.Ticket;
 import com.elias.GestoBar.model.TicketDetail;
+import com.elias.GestoBar.model.User;
+import com.elias.GestoBar.repository.UserRepository;
 import com.elias.GestoBar.service.TicketDetailService;
 import com.elias.GestoBar.service.TicketService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,10 +31,15 @@ public class TicketController {
     private final TicketDetailService ticketDetailService;
     private final TicketMapper ticketMapper;
     private final TicketDetailMapper ticketDetailMapper;
+    private final UserRepository userRepository;
 
     @PostMapping
-    public ResponseEntity<TicketResponseDTO> createTicket(@RequestBody @Valid TicketRequestDTO request) {
-        Ticket ticket = ticketService.createTicket(request.getTableId(), request.getUserId());
+    public ResponseEntity<TicketResponseDTO> createTicket(
+            @RequestBody @Valid TicketRequestDTO request,
+            @AuthenticationPrincipal UserDetails userDetails) {
+
+        User user = userRepository.findByName(userDetails.getUsername()).orElseThrow();
+        Ticket ticket = ticketService.createTicket(request.getTableId(), user.getUserId());
         return ResponseEntity.status(HttpStatus.CREATED).body(ticketMapper.toResponse(ticket));
     }
 

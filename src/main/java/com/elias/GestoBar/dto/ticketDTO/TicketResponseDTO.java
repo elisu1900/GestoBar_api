@@ -21,6 +21,7 @@ public class TicketResponseDTO {
     private Integer userId;
     private String status;
     private BigDecimal total;
+    private Boolean archived;
     private LocalDateTime createdAt;
     private LocalDateTime closedAt;
 
