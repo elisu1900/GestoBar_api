@@ -38,7 +38,7 @@ public class TicketDetailService {
             id.setProductId(productId);
             detail.setId(id);
             detail.setQuantity(quantity);
-            detail.setUnitPrice(product.getPrice()); // precio fijo en el momento
+            detail.setUnitPrice(product.getSellPrice()); // precio fijo en el momento
         }
 
         TicketDetail saved = ticketDetailRepository.save(detail);
