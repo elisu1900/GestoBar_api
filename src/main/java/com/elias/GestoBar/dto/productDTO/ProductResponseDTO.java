@@ -15,6 +15,7 @@ public class ProductResponseDTO {
     private Integer categoryId;
     private String categoryName;
     private String name;
-    private BigDecimal price;
+    private BigDecimal sellPrice;
+    private BigDecimal costPrice;
     private Boolean isActive;
 }

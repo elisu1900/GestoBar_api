@@ -26,7 +26,12 @@ public class ProductRequestDTO {
     @NotNull
     @DecimalMin(value = "0.00", inclusive = false)
     @Digits(integer = 8, fraction = 2)
-    private BigDecimal price;
+    private BigDecimal sellPrice;
+
+    @NotNull
+    @DecimalMin(value = "0.00", inclusive = false)
+    @Digits(integer = 8, fraction = 2)
+    private BigDecimal costPrice;
 
     @NotNull
     private Boolean isActive;
