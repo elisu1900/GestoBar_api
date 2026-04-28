@@ -46,8 +46,14 @@ public class SecurityConfig {
                 )
 
                 .authorizeHttpRequests(auth -> auth
+                        // Auth pública
                         .requestMatchers("/api/auth/login", "/api/auth/logout").permitAll()
                         .requestMatchers("/api/auth/me").authenticated()
+
+                        // Gestión de usuarios → solo ADMIN
+                        .requestMatchers("/api/v1/users/**").hasRole("ADMIN")
+
+                        // Resto de la API → cualquier autenticado
                         .anyRequest().authenticated()
                 )
 
