@@ -1,7 +1,6 @@
 package com.elias.GestoBar.dto.ticketDTO;
 
 import com.elias.GestoBar.dto.ticketDetailDTO.TicketDetailRequestDTO;
-import com.elias.GestoBar.model.TicketStatus;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 

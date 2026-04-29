@@ -39,6 +39,7 @@ public class Ticket {
     @Column(name = "total", precision = 10, scale = 2)
     private BigDecimal total;
 
+    @Builder.Default
     @Column(name = "archived", nullable = false)
     private Boolean archived = false;
 

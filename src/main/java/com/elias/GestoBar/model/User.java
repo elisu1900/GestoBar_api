@@ -36,7 +36,6 @@ public class User {
     @Column(name = "password", nullable = false, length = 255)
     private String password;
 
-    @NotBlank
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false, length = 50)
     private UserRole role;
@@ -46,4 +45,9 @@ public class User {
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+    }
 }

@@ -21,6 +21,7 @@ public class TableController {
     private final TableService tableService;
     private final RestaurantTableMapper tableMapper;
 
+    //GET /api/tables
     @GetMapping
     public ResponseEntity<List<RestaurantTableResponseDTO>> getAllTables() {
         List<RestaurantTableResponseDTO> tables = tableService.getAllActiveTables()
@@ -29,7 +30,7 @@ public class TableController {
                 .toList();
         return ResponseEntity.ok(tables);
     }
-
+    //GET /api/tables/tablesId
     @GetMapping("/{tableId}")
     public ResponseEntity<RestaurantTableResponseDTO> getTableById(@PathVariable Integer tableId) {
         return ResponseEntity.ok(tableMapper.toResponse(tableService.getTableById(tableId)));

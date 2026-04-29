@@ -1,6 +1,7 @@
 package com.elias.GestoBar.repository;
 
 import com.elias.GestoBar.model.TicketDetail;
+import com.elias.GestoBar.model.TicketDetailId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface TicketDetailRepository extends JpaRepository<TicketDetail, Integer> {
+public interface TicketDetailRepository extends JpaRepository<TicketDetail, TicketDetailId> {
 
     List<TicketDetail> findByTicket_TicketId(Integer ticketId);
 
@@ -17,5 +18,4 @@ public interface TicketDetailRepository extends JpaRepository<TicketDetail, Inte
     Optional<TicketDetail> findByTicket_TicketIdAndProduct_ProductId(Integer ticketId, Integer productId);
 
     void deleteByTicket_TicketIdAndProduct_ProductId(Integer ticketId, Integer productId);
-
 }

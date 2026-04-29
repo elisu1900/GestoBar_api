@@ -8,7 +8,6 @@ import com.elias.GestoBar.model.Category;
 import com.elias.GestoBar.model.Product;
 import com.elias.GestoBar.repository.CategoryRepository;
 import com.elias.GestoBar.repository.ProductRepository;
-import com.elias.GestoBar.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

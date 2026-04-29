@@ -33,6 +33,7 @@ public class TicketController {
     private final TicketDetailMapper ticketDetailMapper;
     private final UserRepository userRepository;
 
+    //POST /api/tickets
     @PostMapping
     public ResponseEntity<TicketResponseDTO> createTicket(
             @RequestBody @Valid TicketRequestDTO request,
@@ -43,16 +44,19 @@ public class TicketController {
         return ResponseEntity.status(HttpStatus.CREATED).body(ticketMapper.toResponse(ticket));
     }
 
+    //GET  /api/tocket/{ticketId}
     @GetMapping("/{ticketId}")
     public ResponseEntity<TicketResponseDTO> getTicket(@PathVariable Integer ticketId) {
         return ResponseEntity.ok(ticketMapper.toResponse(ticketService.getTicketById(ticketId)));
     }
 
+    //PATCH /api/ticket/{ticketId}/close
     @PatchMapping("/{ticketId}/close")
     public ResponseEntity<TicketResponseDTO> closeTicket(@PathVariable Integer ticketId) {
         return ResponseEntity.ok(ticketMapper.toResponse(ticketService.closeTicket(ticketId)));
     }
 
+    //POST /api/ticket/{ticketId}/details
     @PostMapping("/{ticketId}/details")
     public ResponseEntity<TicketDetailResponseDTO> addDetail(
             @PathVariable Integer ticketId,
@@ -61,6 +65,7 @@ public class TicketController {
         return ResponseEntity.status(HttpStatus.CREATED).body(ticketDetailMapper.toResponse(detail));
     }
 
+    //PATCH /api/ticket/{ticketId}/details/{productId}
     @PatchMapping("/{ticketId}/details/{productId}")
     public ResponseEntity<TicketDetailResponseDTO> updateDetail(
             @PathVariable Integer ticketId,
@@ -73,6 +78,7 @@ public class TicketController {
         return ResponseEntity.ok(ticketDetailMapper.toResponse(detail));
     }
 
+    //DELETE /api/ticket/{ticketId}/details/{productId}
     @DeleteMapping("/{ticketId}/details/{productId}")
     public ResponseEntity<Void> deleteDetail(
             @PathVariable Integer ticketId,

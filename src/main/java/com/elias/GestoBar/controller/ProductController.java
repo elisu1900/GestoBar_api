@@ -13,13 +13,13 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/products")
+@RequestMapping("/api/products")
 @RequiredArgsConstructor
 public class ProductController {
 
     private final ProductService productService;
 
-    //POST /api/v1/products
+    //POST /api/products
     @PostMapping
     public ResponseEntity<ProductResponseDTO> createProduct(
             @Valid @RequestBody ProductRequestDTO dto) {
@@ -27,33 +27,33 @@ public class ProductController {
                 .body(productService.createProduct(dto));
     }
 
-    //GET /api/v1/products
+    //GET /api/products
     @GetMapping
     public ResponseEntity<List<ProductResponseDTO>> getAllProducts() {
         return ResponseEntity.ok(productService.getAllProducts());
     }
 
-    //GET /api/v1/products/{id}
+    //GET /api/products/{id}
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponseDTO> getProductById(@PathVariable Integer id) {
         return ResponseEntity.ok(productService.getProductById(id));
     }
 
-    //GET /api/v1/products/category/{categoryId}
+    //GET /api/products/category/{categoryId}
     @GetMapping("/category/{categoryId}")
     public ResponseEntity<List<ProductResponseDTO>> getProductsByCategory(
             @PathVariable Integer categoryId) {
         return ResponseEntity.ok(productService.getProductsByCategory(categoryId));
     }
 
-    //GET /api/v1/products/search?name=?
+    //GET /api/products/search?name=?
     @GetMapping("/search")
     public ResponseEntity<List<ProductResponseDTO>> searchByName(
             @RequestParam String name) {
         return ResponseEntity.ok(productService.getProductsByName(name));
     }
 
-    //GET /api/v1/products/price-range?min=?&max=?
+    //GET /api/products/price-range?min=?&max=?
     @GetMapping("/price-range")
     public ResponseEntity<List<ProductResponseDTO>> getByPriceRange(
             @RequestParam BigDecimal min,
@@ -61,19 +61,19 @@ public class ProductController {
         return ResponseEntity.ok(productService.getProductsBySellPriceRange(min, max));
     }
 
-    //GET /api/v1/products/active
+    //GET /api/products/active
     @GetMapping("/active")
     public ResponseEntity<List<ProductResponseDTO>> getActiveProducts() {
         return ResponseEntity.ok(productService.getActiveProducts());
     }
 
-    //GET /api/v1/products/inactive
+    //GET /api/products/inactive
     @GetMapping("/inactive")
     public ResponseEntity<List<ProductResponseDTO>> getInactiveProducts() {
         return ResponseEntity.ok(productService.getInactiveProducts());
     }
 
-    //PUT /api/v1/products/{id}
+    //PUT /api/products/{id}
     @PutMapping("/{id}")
     public ResponseEntity<ProductResponseDTO> updateProduct(
             @PathVariable Integer id,
@@ -81,7 +81,7 @@ public class ProductController {
         return ResponseEntity.ok(productService.updateProduct(id, dto));
     }
 
-    //DELETE /api/v1/products/{id}
+    //DELETE /api/products/{id}
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Integer id) {
         productService.deleteProduct(id);
