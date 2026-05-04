@@ -29,7 +29,7 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
 
-    // POST /api/auth/login
+    //POST /api/auth/login
     @PostMapping("/login")
     public ResponseEntity<?> login(
             @RequestBody LoginRequest request,
@@ -71,7 +71,7 @@ public class AuthController {
         }
     }
 
-    //  GET /api/auth/me
+    //GET /api/auth/me
     @GetMapping("/me")
     public ResponseEntity<?> me(@AuthenticationPrincipal UserDetails userDetails) {
         if (userDetails == null) {
@@ -90,7 +90,7 @@ public class AuthController {
         ));
     }
 
-    //  POST /api/auth/logout
+    //POST /api/auth/logout
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(false);

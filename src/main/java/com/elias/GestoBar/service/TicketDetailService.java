@@ -19,7 +19,7 @@ public class TicketDetailService {
     private final ProductRepository productRepository;
     private final TicketService ticketService;
 
-    public TicketDetail addDetail(Integer ticketId, Integer productId, int quantity) {
+    public TicketDetail addDetail(Integer ticketId, Integer productId) {
         Optional<TicketDetail> existing =
                 ticketDetailRepository.findByTicket_TicketIdAndProduct_ProductId(ticketId, productId);
 
@@ -27,7 +27,7 @@ public class TicketDetailService {
 
         if (existing.isPresent()) {
             detail = existing.get();
-            detail.setQuantity(detail.getQuantity() + quantity);
+            detail.setQuantity(detail.getQuantity() + 1);
         } else {
             Product product = productRepository.findById(productId)
                     .orElseThrow(() -> new RuntimeException("Product not found"));
@@ -37,7 +37,7 @@ public class TicketDetailService {
             id.setTicketId(ticketId);
             id.setProductId(productId);
             detail.setId(id);
-            detail.setQuantity(quantity);
+            detail.setQuantity(1);
             detail.setUnitPrice(product.getSellPrice()); // precio fijo en el momento
         }
 
