@@ -6,6 +6,8 @@ import com.elias.GestoBar.model.TicketDetailId;
 import com.elias.GestoBar.repository.ProductRepository;
 import com.elias.GestoBar.repository.TicketDetailRepository;
 import jakarta.transaction.Transactional;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +21,7 @@ public class TicketDetailService {
     private final ProductRepository productRepository;
     private final TicketService ticketService;
 
-    public TicketDetail addDetail(Integer ticketId, Integer productId) {
+    public TicketDetail addDetail(Integer ticketId, Integer productId, @NotNull @Min(1) Integer quantity) {
         Optional<TicketDetail> existing =
                 ticketDetailRepository.findByTicket_TicketIdAndProduct_ProductId(ticketId, productId);
 
