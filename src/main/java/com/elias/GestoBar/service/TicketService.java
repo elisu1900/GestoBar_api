@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -72,6 +73,11 @@ public class TicketService {
         ticket.setClosedAt(LocalDateTime.now());
 
         return ticketRepository.save(ticket);
+    }
+
+
+    public Optional<Ticket> findOpenTicketByTable(Integer tableId) {
+        return ticketRepository.findByTable_TableIdAndStatus(tableId, TicketStatus.OPEN);
     }
 
     // RECALCULATE

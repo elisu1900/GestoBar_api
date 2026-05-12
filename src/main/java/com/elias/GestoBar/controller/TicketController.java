@@ -78,6 +78,14 @@ public class TicketController {
         return ResponseEntity.ok(ticketDetailMapper.toResponse(detail));
     }
 
+    // GET /api/tickets/table/{tableId}/open
+    @GetMapping("/table/{tableId}/open")
+    public ResponseEntity<TicketResponseDTO> getOpenTicketByTable(@PathVariable Integer tableId) {
+        return ticketService.findOpenTicketByTable(tableId)
+                .map(ticket -> ResponseEntity.ok(ticketMapper.toResponse(ticket)))
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     //DELETE /api/ticket/{ticketId}/details/{productId}
     @DeleteMapping("/{ticketId}/details/{productId}")
     public ResponseEntity<Void> deleteDetail(
