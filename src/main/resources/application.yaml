@@ -30,3 +30,8 @@ server:
       timeout: 30m
       cookie:
         http-only: true
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE

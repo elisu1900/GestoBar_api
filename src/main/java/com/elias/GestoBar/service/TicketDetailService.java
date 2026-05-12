@@ -1,6 +1,7 @@
 package com.elias.GestoBar.service;
 
 import com.elias.GestoBar.model.Product;
+import com.elias.GestoBar.model.Ticket;
 import com.elias.GestoBar.model.TicketDetail;
 import com.elias.GestoBar.model.TicketDetailId;
 import com.elias.GestoBar.repository.ProductRepository;
@@ -34,13 +35,18 @@ public class TicketDetailService {
             Product product = productRepository.findById(productId)
                     .orElseThrow(() -> new RuntimeException("Product not found"));
 
-            detail = new TicketDetail();
+            Ticket ticket = ticketService.getTicketById(ticketId);
+
             TicketDetailId id = new TicketDetailId();
             id.setTicketId(ticketId);
             id.setProductId(productId);
+
+            detail = new TicketDetail();
             detail.setId(id);
+            detail.setTicket(ticket);
+            detail.setProduct(product);
             detail.setQuantity(1);
-            detail.setUnitPrice(product.getSellPrice()); // precio fijo en el momento
+            detail.setUnitPrice(product.getSellPrice());
         }
 
         TicketDetail saved = ticketDetailRepository.save(detail);
