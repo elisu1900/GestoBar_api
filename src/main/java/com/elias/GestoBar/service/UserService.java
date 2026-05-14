@@ -73,9 +73,11 @@ public class UserService{
 
 
     @Transactional
-    public void deleteUser(Integer userId) {
-        User user = findUserOrThrow(userId);
-        userRepository.delete(user);
+    public void deleteUser(Integer id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        user.setIsActive(false);
+        userRepository.save(user);
     }
 
 
