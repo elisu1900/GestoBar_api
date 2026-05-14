@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class UserService{
+public class UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
@@ -43,7 +43,7 @@ public class UserService{
     }
 
     public List<UserResponseDTO> getAllUsers() {
-        return userRepository.findAll()
+        return userRepository.findByIsActiveTrue()
                 .stream()
                 .map(userMapper::toResponse)
                 .toList();
