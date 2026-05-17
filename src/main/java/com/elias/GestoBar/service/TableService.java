@@ -3,6 +3,7 @@ package com.elias.GestoBar.service;
 import com.elias.GestoBar.dto.restaurantTableDTO.RestaurantTableRequestDTO;
 import com.elias.GestoBar.model.RestaurantTable;
 import com.elias.GestoBar.repository.RestaurantTableRepository;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +25,15 @@ public class TableService {
     }
 
     public RestaurantTable createTable(RestaurantTableRequestDTO request) {
-        if (tableRepository.existsByNumber(request.getNumber())) {
-            throw new IllegalArgumentException("Ya existe una mesa con el número " + request.getNumber());
+        Optional<RestaurantTable> existing = tableRepository.findByNumber(request.getNumber());
+        if (existing.isPresent()) {
+            RestaurantTable table = existing.get();
+            if (Boolean.TRUE.equals(table.getIsActive())) {
+                throw new IllegalArgumentException("Ya existe una mesa activa con el número " + request.getNumber());
+            }
+            table.setIsActive(true);
+            table.setCapacity(request.getCapacity());
+            return tableRepository.save(table);
         }
         return tableRepository.save(RestaurantTable.builder()
                 .number(request.getNumber())

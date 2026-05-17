@@ -19,6 +19,5 @@ public class RestaurantTableRequestDTO {
     @Min(1)
     private Integer capacity;
 
-    @NotNull
     private Boolean isActive;
 }

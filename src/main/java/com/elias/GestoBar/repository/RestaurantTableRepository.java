@@ -17,5 +17,5 @@ public interface RestaurantTableRepository extends JpaRepository<RestaurantTable
 
     List<RestaurantTable> findByCapacity(Integer capacity);
 
-    boolean existsByNumber(Integer number);
+    java.util.Optional<RestaurantTable> findByNumber(Integer number);
 }
