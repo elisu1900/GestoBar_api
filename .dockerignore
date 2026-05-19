@@ -1,0 +1,16 @@
+.git
+.gitattributes
+.gradle
+.idea
+*.iml
+out
+src
+build/classes
+build/generated
+build/resources
+build/tmp
+build/kotlin
+gradle
+*.bat
+*.kts
+*.md
