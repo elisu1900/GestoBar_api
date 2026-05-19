@@ -19,7 +19,7 @@ public interface TicketRepository extends JpaRepository<Ticket, Integer> {
 
     Optional<Ticket> findByTicketId(Integer id);
 
-    Optional<Ticket> findByTable_TableIdAndStatus(Integer talbeId, TicketStatus status);
+    List<Ticket> findByTable_TableIdAndStatus(Integer tableId, TicketStatus status);
 
     List<Ticket> findByStatusAndArchivedFalseAndClosedAtBetween(TicketStatus status, LocalDateTime start, LocalDateTime end);
 }

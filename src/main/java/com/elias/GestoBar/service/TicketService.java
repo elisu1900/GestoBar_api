@@ -30,6 +30,7 @@ public class TicketService {
     @Transactional
     public Ticket createTicket(Integer tableId, Integer userId) {
         ticketRepository.findByTable_TableIdAndStatus(tableId, TicketStatus.OPEN)
+                .stream().findFirst()
                 .ifPresent(t -> {
                     throw new IllegalStateException("Table already has an open ticket");
                 });
@@ -77,7 +78,40 @@ public class TicketService {
 
 
     public Optional<Ticket> findOpenTicketByTable(Integer tableId) {
-        return ticketRepository.findByTable_TableIdAndStatus(tableId, TicketStatus.OPEN);
+        return ticketRepository.findByTable_TableIdAndStatus(tableId, TicketStatus.OPEN)
+                .stream().findFirst();
+    }
+
+    // MOVE
+
+    @Transactional
+    public Ticket moveTicket(Integer ticketId, Integer targetTableId) {
+        Ticket ticket = ticketRepository.findById(ticketId)
+                .orElseThrow(() -> new ResourceNotFoundException("Ticket not found: " + ticketId));
+
+        if (!TicketStatus.OPEN.equals(ticket.getStatus())) {
+            throw new IllegalStateException("Only open tickets can be moved");
+        }
+
+        if (ticket.getTable().getTableId().equals(targetTableId)) {
+            throw new IllegalStateException("Ticket is already assigned to this table");
+        }
+
+        RestaurantTable targetTable = tableRepository.findById(targetTableId)
+                .orElseThrow(() -> new ResourceNotFoundException("Table not found: " + targetTableId));
+
+        ticketRepository.findByTable_TableIdAndStatus(targetTableId, TicketStatus.OPEN)
+                .stream().findFirst()
+                .ifPresent(existing -> {
+                    List<TicketDetail> details = ticketDetailRepository.findByTicket_TicketId(existing.getTicketId());
+                    if (!details.isEmpty()) {
+                        throw new IllegalStateException("Target table already has an open ticket with products");
+                    }
+                    ticketRepository.delete(existing);
+                });
+
+        ticket.setTable(targetTable);
+        return ticketRepository.save(ticket);
     }
 
     // RECALCULATE

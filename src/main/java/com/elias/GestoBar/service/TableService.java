@@ -29,7 +29,7 @@ public class TableService {
         if (existing.isPresent()) {
             RestaurantTable table = existing.get();
             if (Boolean.TRUE.equals(table.getIsActive())) {
-                throw new IllegalArgumentException("Ya existe una mesa activa con el número " + request.getNumber());
+                throw new IllegalArgumentException("An active table already exists with number " + request.getNumber());
             }
             table.setIsActive(true);
             table.setCapacity(request.getCapacity());

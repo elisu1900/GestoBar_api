@@ -86,6 +86,14 @@ public class TicketController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    // PATCH /api/tickets/{ticketId}/move?targetTableId={id}
+    @PatchMapping("/{ticketId}/move")
+    public ResponseEntity<TicketResponseDTO> moveTicket(
+            @PathVariable Integer ticketId,
+            @RequestParam Integer targetTableId) {
+        return ResponseEntity.ok(ticketMapper.toResponse(ticketService.moveTicket(ticketId, targetTableId)));
+    }
+
     //DELETE /api/ticket/{ticketId}/details/{productId}
     @DeleteMapping("/{ticketId}/details/{productId}")
     public ResponseEntity<Void> deleteDetail(
