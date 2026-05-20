@@ -1,17 +1,19 @@
 package com.elias.GestoBar.service;
 
+import com.elias.GestoBar.exception.ResourceNotFoundException;
 import com.elias.GestoBar.model.Product;
 import com.elias.GestoBar.model.Ticket;
 import com.elias.GestoBar.model.TicketDetail;
 import com.elias.GestoBar.model.TicketDetailId;
 import com.elias.GestoBar.repository.ProductRepository;
 import com.elias.GestoBar.repository.TicketDetailRepository;
-import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.table.DefaultTableCellRenderer;
 import java.util.Optional;
 
 @Service
@@ -33,7 +35,7 @@ public class TicketDetailService {
             detail.setQuantity(detail.getQuantity() + 1);
         } else {
             Product product = productRepository.findById(productId)
-                    .orElseThrow(() -> new RuntimeException("Product not found"));
+                    .orElseThrow(() -> new ResourceNotFoundException("product not found with id: " + productId));
 
             Ticket ticket = ticketService.getTicketById(ticketId);
 
@@ -57,7 +59,7 @@ public class TicketDetailService {
     public TicketDetail updateQuantity(Integer ticketId, Integer productId, int quantity) {
         TicketDetail detail = ticketDetailRepository
                 .findByTicket_TicketIdAndProduct_ProductId(ticketId, productId)
-                .orElseThrow(() -> new RuntimeException("Detail not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Detail not found with id: " + ticketId));
 
         if (quantity <= 0) {
             ticketDetailRepository.deleteByTicket_TicketIdAndProduct_ProductId(ticketId, productId);
@@ -74,7 +76,7 @@ public class TicketDetailService {
     @Transactional
     public void deleteDetail(Integer ticketId, Integer productId) {
         ticketDetailRepository.findByTicket_TicketIdAndProduct_ProductId(ticketId, productId)
-                .orElseThrow(() -> new RuntimeException("Detail not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Detail not found with id: " + ticketId));
 
         ticketDetailRepository.deleteByTicket_TicketIdAndProduct_ProductId(ticketId, productId);
         ticketService.recalculateTotal(ticketId);

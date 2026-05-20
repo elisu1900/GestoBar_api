@@ -35,6 +35,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                // csrf deshabilitado: app interna controlada. cors deshabilitado: el cliente es JavaFX, no un navegador
                 .csrf(csrf -> csrf.disable())
 
                 .cors(cors -> cors.disable())

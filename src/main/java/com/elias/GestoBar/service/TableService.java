@@ -1,6 +1,7 @@
 package com.elias.GestoBar.service;
 
 import com.elias.GestoBar.dto.restaurantTableDTO.RestaurantTableRequestDTO;
+import com.elias.GestoBar.exception.ResourceNotFoundException;
 import com.elias.GestoBar.model.RestaurantTable;
 import com.elias.GestoBar.repository.RestaurantTableRepository;
 import java.util.Optional;
@@ -21,7 +22,7 @@ public class TableService {
 
     public RestaurantTable getTableById(Integer tableId) {
         return tableRepository.findById(tableId)
-                .orElseThrow(() -> new RuntimeException("Table not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Table not found with id: " + tableId));
     }
 
     public RestaurantTable createTable(RestaurantTableRequestDTO request) {

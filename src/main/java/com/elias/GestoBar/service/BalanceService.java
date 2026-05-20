@@ -8,6 +8,7 @@ import com.elias.GestoBar.model.TicketStatus;
 import com.elias.GestoBar.repository.TicketRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -76,6 +77,7 @@ public class BalanceService {
                 .build();
     }
 
+    @Transactional
     public void resetDay() {
         LocalDateTime start = LocalDate.now().atStartOfDay();
         LocalDateTime end = LocalDate.now().atTime(LocalTime.MAX);
