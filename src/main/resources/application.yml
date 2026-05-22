@@ -2,6 +2,9 @@ spring:
   application:
     name: gestobar
 
+  profiles:
+    active: PROD
+
   datasource:
     url: jdbc:postgresql://localhost:5432/gestobar
     username: ${DB_USER}
@@ -19,7 +22,6 @@ spring:
 
   flyway:
     enabled: true
-    locations: classpath:db/migration
     default-schema: gestobar
     create-schemas: true
 
@@ -30,6 +32,7 @@ server:
       timeout: 30m
       cookie:
         http-only: true
+
 logging:
   level:
     org.springframework.web: DEBUG
