@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -42,48 +43,55 @@ public class ProductService{
 
 
     public List<ProductResponseDTO> getAllProducts() {
-        return productRepository.findAll()
-                .stream()
-                .map(productMapper::toResponse)
-                .toList();
+        List<ProductResponseDTO> result = new ArrayList<>();
+        for (Product p : productRepository.findAll()) {
+            result.add(productMapper.toResponse(p));
+        }
+        return result;
     }
 
 
     public List<ProductResponseDTO> getProductsByCategory(Integer categoryId) {
-        return productRepository.findByCategory_CategoryId(categoryId)
-                .stream()
-                .map(productMapper::toResponse)
-                .toList();
+        List<Product> products = productRepository.findByCategory_CategoryId(categoryId);
+        List<ProductResponseDTO> result = new ArrayList<>();
+        for (Product p : products) {
+            result.add(productMapper.toResponse(p));
+        }
+        return result;
     }
 
 
     public List<ProductResponseDTO> getProductsByName(String name) {
-        return productRepository.findByNameContainingIgnoreCase(name)
-                .stream()
-                .map(productMapper::toResponse)
-                .toList();
+        List<ProductResponseDTO> result = new ArrayList<>();
+        for (Product p : productRepository.findByNameContainingIgnoreCase(name)) {
+            result.add(productMapper.toResponse(p));
+        }
+        return result;
     }
 
 
     public List<ProductResponseDTO> getProductsBySellPriceRange(BigDecimal min, BigDecimal max) {
-        return productRepository.findBySellPriceBetween(min, max)
-                .stream()
-                .map(productMapper::toResponse)
-                .toList();
+        List<ProductResponseDTO> result = new ArrayList<>();
+        for (Product p : productRepository.findBySellPriceBetween(min, max)) {
+            result.add(productMapper.toResponse(p));
+        }
+        return result;
     }
 
     public List<ProductResponseDTO> getActiveProducts() {
-        return productRepository.findByIsActiveTrue()
-                .stream()
-                .map(productMapper::toResponse)
-                .toList();
+        List<ProductResponseDTO> list = new ArrayList<>();
+        for (Product prod : productRepository.findByIsActiveTrue()) {
+            list.add(productMapper.toResponse(prod));
+        }
+        return list;
     }
 
     public List<ProductResponseDTO> getInactiveProducts() {
-        return productRepository.findByIsActiveFalse()
-                .stream()
-                .map(productMapper::toResponse)
-                .toList();
+        List<ProductResponseDTO> result = new ArrayList<>();
+        for (Product p : productRepository.findByIsActiveFalse()) {
+            result.add(productMapper.toResponse(p));
+        }
+        return result;
     }
 
 
@@ -108,11 +116,8 @@ public class ProductService{
 
 
     private Product findProductOrThrow(Integer productId) {
-        Product product = productRepository.findByProductId(productId);
-        if (product == null) {
-            throw new ResourceNotFoundException("Product not found with id: " + productId);
-        }
-        return product;
+        return productRepository.findById(productId)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + productId));
     }
 
     private Category findCategoryOrThrow(Integer categoryId) {

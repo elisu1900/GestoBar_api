@@ -27,7 +27,7 @@ public class ProductController {
                 .body(productService.createProduct(dto));
     }
 
-    //GET /api/products
+    //GET /api/product
     @GetMapping
     public ResponseEntity<List<ProductResponseDTO>> getAllProducts() {
         return ResponseEntity.ok(productService.getAllProducts());

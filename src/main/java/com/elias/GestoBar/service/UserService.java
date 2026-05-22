@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -43,10 +44,11 @@ public class UserService {
     }
 
     public List<UserResponseDTO> getAllUsers() {
-        return userRepository.findByIsActiveTrue()
-                .stream()
-                .map(userMapper::toResponse)
-                .toList();
+        List<UserResponseDTO> users = new ArrayList<>();
+        for (User u : userRepository.findByIsActiveTrue()) {
+            users.add(userMapper.toResponse(u));
+        }
+        return users;
     }
 
 

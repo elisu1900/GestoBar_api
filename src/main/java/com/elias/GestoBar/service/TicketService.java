@@ -25,8 +25,6 @@ public class TicketService {
     private final RestaurantTableRepository tableRepository;
     private final UserRepository userRepository;
 
-    //CREATE
-
     @Transactional
     public Ticket createTicket(Integer tableId, Integer userId) {
         ticketRepository.findByTable_TableIdAndStatus(tableId, TicketStatus.OPEN)
@@ -52,14 +50,25 @@ public class TicketService {
         return ticketRepository.save(ticket);
     }
 
-    //READ
-
     public Ticket getTicketById(Integer ticketId) {
         return ticketRepository.findById(ticketId)
                 .orElseThrow(() -> new ResourceNotFoundException("Ticket not found with id: " + ticketId));
     }
 
-    //CLOSE
+    @Transactional
+    public Ticket cancelTicket(Integer ticketId) {
+        Ticket ticket = ticketRepository.findById(ticketId)
+                .orElseThrow(() -> new ResourceNotFoundException("Ticket not found with id: " + ticketId));
+
+        if (!TicketStatus.OPEN.equals(ticket.getStatus())) {
+            throw new IllegalStateException("Only open tickets can be cancelled");
+        }
+
+        ticket.setStatus(TicketStatus.CANCELLED);
+        ticket.setClosedAt(LocalDateTime.now());
+
+        return ticketRepository.save(ticket);
+    }
 
     @Transactional
     public Ticket closeTicket(Integer ticketId) {
@@ -81,8 +90,6 @@ public class TicketService {
         return ticketRepository.findByTable_TableIdAndStatus(tableId, TicketStatus.OPEN)
                 .stream().findFirst();
     }
-
-    // MOVE
 
     @Transactional
     public Ticket moveTicket(Integer ticketId, Integer targetTableId) {
@@ -113,8 +120,6 @@ public class TicketService {
         ticket.setTable(targetTable);
         return ticketRepository.save(ticket);
     }
-
-    // RECALCULATE
 
     @Transactional
     public void recalculateTotal(Integer ticketId) {

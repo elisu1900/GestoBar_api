@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.*;
 public class BalanceController {
 
     private final BalanceService balanceService;
-    //GET /api/balane/daily
+
+    //GET /api/balace/daily
     @GetMapping("/daily")
     public ResponseEntity<DailyBalanceResponseDTO> getDailyBalance() {
         return ResponseEntity.ok(balanceService.getDailyBalance());
     }
+
     //POST /api/balance/reset
     @PostMapping("/reset")
     public ResponseEntity<Void> resetDay() {

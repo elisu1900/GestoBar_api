@@ -6,11 +6,11 @@ import com.elias.GestoBar.exception.ResourceNotFoundException;
 import com.elias.GestoBar.mapper.CategoryMapper;
 import com.elias.GestoBar.model.Category;
 import com.elias.GestoBar.repository.CategoryRepository;
-import com.elias.GestoBar.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,10 +32,11 @@ public class CategoryService {
     }
 
     public List<CategoryResponseDTO> getAllCategories() {
-        return categoryRepository.findAll()
-                .stream()
-                .map(categoryMapper::toResponse)
-                .toList();
+        List<CategoryResponseDTO> cats = new ArrayList<>();
+        for (Category c : categoryRepository.findAll()) {
+            cats.add(categoryMapper.toResponse(c));
+        }
+        return cats;
     }
 
     public List<CategoryResponseDTO> searchByName(String name) {
