@@ -3,7 +3,7 @@ spring:
     name: gestobar
 
   profiles:
-    active: PROD
+    active: dev
 
   datasource:
     url: jdbc:postgresql://localhost:5432/gestobar
